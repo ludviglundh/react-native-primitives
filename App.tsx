@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -17,13 +10,9 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import * as Card from './packages/react-native/card';
+import * as Dialog from './packages/react-native/dialog';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -71,25 +60,40 @@ function App(): React.JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+          <Section title="card">
+            <Card.Root>
+              <Card.Header>
+                <Card.Title>Card title</Card.Title>
+                <Card.Description>Card description</Card.Description>
+              </Card.Header>
+              <Card.Content>
+                <Text>Card content</Text>
+              </Card.Content>
+              <Card.CardFooter>
+                <Text>Card Footer</Text>
+              </Card.CardFooter>
+            </Card.Root>
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
+
+          <Section title="Dialog">
+            <Dialog.Root>
+              <Dialog.Trigger style={[styles.button, styles.buttonOpen]}>
+                <Text>Trigger</Text>
+              </Dialog.Trigger>
+              <Dialog.Portal animationType="fade">
+                <Dialog.Content style={styles.centeredView}>
+                  <Text>Hello world</Text>
+                  <Dialog.Close>
+                    <Text>Close me</Text>
+                  </Dialog.Close>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
           </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -112,6 +116,47 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 
